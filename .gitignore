@@ -1,0 +1,11 @@
+# Visual studio stuff
+.vs/
+packages/
+obj/
+bin/
+TestResults/
+
+#Build script stuff
+Drop/
+TestDrop/
+

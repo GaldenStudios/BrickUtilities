@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk" InitialTargets="SetVersion">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>BrickUtilities</PackageId>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>BrickUtilities</AssemblyName>
+    <RootNamespace>BrickUtilities</RootNamespace>
+    <Authors>Galden Studios</Authors>
+    <PackageProjectUrl>https://github.com/GaldenStudios/BrickUtilities</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/GaldenStudios/BrickUtilities/blob/master/license.txt</PackageLicenseUrl>
+    <Description>Utilities for the LDraw system.  See http://ldraw.org for more information about the LDraw system.</Description>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
+    <GitIgnoreTagVersion>True</GitIgnoreTagVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.4\BrickUtilities.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.4\BrickUtilities.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitInfo" Version="2.0.6">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+
+  <!-- Drop output to drop directory -->
+  <Target Name="Drop" AfterTargets="Pack">
+    <ItemGroup>
+      <DropFiles Include="$(MSBuildProjectDirectory)\$(OutputPath)\..\*.nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DropFiles)" DestinationFolder="$(MSBuildProjectDirectory)\..\..\Drop\$(Platform)\$(Configuration)" />
+  </Target>
+
+  <!-- Versioning -->
+  <Target Name="GitVersion">
+    <PropertyGroup>
+      <GitBaseVersionMajor>0</GitBaseVersionMajor>
+      <GitBaseVersionMinor>0</GitBaseVersionMinor>
+      <GitBaseVersionPatch>0</GitBaseVersionPatch>
+    </PropertyGroup>
+  </Target>
+  <Target Name="SetVersion" DependsOnTargets="GitVersion">
+    <PropertyGroup>
+      <PackageVersionSuffix></PackageVersionSuffix>
+      <PackageVersionSuffix Condition="'$(OfficialBuild)'==''">-pre</PackageVersionSuffix>
+      <PackageVersion>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)$(PackageVersionSuffix)</PackageVersion>
+      <AssemblyVersion>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</AssemblyVersion>
+    </PropertyGroup>
+  </Target>
+
+</Project>

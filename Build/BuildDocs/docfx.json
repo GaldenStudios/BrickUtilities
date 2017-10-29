@@ -1,0 +1,69 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "BrickUtilities.dll"
+          ],
+          "cwd": "../../src/library/bin/release/netstandard2.0"
+        }
+      ],
+      "dest": "obj/api"
+    }
+  ],
+    "build": {
+        "globalMetadata": {
+            "_appTitle": "BrickUtilities",
+            "_appFooter": "Copyright (c) 2017 Galden Studios",
+            "_appLogoPath": "images/GaldenStudios.png",
+            "_appFaviconPath": "images/GaldenStudios.png",
+            "_disableContribution": "true"
+        },
+        "content": [
+            {
+                "files": [
+                    "api/**.yml"
+                ],
+                "cwd": "obj"
+            },
+            {
+                "files": [
+                    "api/*.md",
+                    "toc.yml",
+                    "*.md"
+                ],
+                "exclude": [
+                    "obj/**",
+                    "_site/**"
+                ]
+            }
+        ],
+        "resource": [
+            {
+                "files": [
+                    "images/**"
+                ],
+                "exclude": [
+                    "obj/**",
+                    "_site/**"
+                ]
+            }
+        ],
+        "overwrite": [
+            {
+                "files": [
+                    "apidoc/**.md"
+                ],
+                "exclude": [
+                    "obj/**",
+                    "_site/**"
+                ]
+            }
+        ],
+        "dest": "../../Docs",
+        "template": [
+            "default"
+        ]
+    }
+}
