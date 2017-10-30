@@ -2,7 +2,6 @@
 # BrickUtilities
 
 BrickUtilities is a set of utilities for applications that manipulate "brick" data such as:
-* the [LDraw System](http://ldraw.org).
 * [BrickLink](http://bricklink.com) part lists.
 
 More details below, or see the [API documentation](api/index.html) for complete details.
