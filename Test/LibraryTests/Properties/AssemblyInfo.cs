@@ -1,5 +1,9 @@
+// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("LibraryTests")]

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
 
 namespace BrickUtilities.BrickLink
 {

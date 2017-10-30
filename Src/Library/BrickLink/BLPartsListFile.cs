@@ -1,4 +1,9 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -18,11 +23,6 @@ namespace BrickUtilities.BrickLink
     public class BLPartsListFile
     {
         /// <summary>
-        /// Items
-        /// </summary>
-        public ReadOnlyCollection<BLPartsListItem> Items { get; }
-
-        /// <summary>
         /// Constructor
         /// </summary>
         private BLPartsListFile(List<BLPartsListItem> items)
@@ -40,6 +40,11 @@ namespace BrickUtilities.BrickLink
         }
 
         /// <summary>
+        /// Items
+        /// </summary>
+        public ReadOnlyCollection<BLPartsListItem> Items { get; }
+
+        /// <summary>
         /// Get child element
         /// </summary>
         private static XElement ParseChildElement(XElement element, string elementName, bool optional)
@@ -47,17 +52,20 @@ namespace BrickUtilities.BrickLink
             var foundElements = element.Elements(elementName).ToArray();
             if (foundElements.Length == 0)
             {
-                if(!optional)
-                    throw new FileParseException("Missing '" + elementName + "' element", (element as IXmlLineInfo).LineNumber);
+                if (!optional)
+                    throw new FileParseException("Missing '" + elementName + "' element",
+                        (element as IXmlLineInfo).LineNumber);
                 return null;
             }
             if (foundElements.Length > 1)
-                throw new FileParseException("Duplicate '" + elementName + "' elements", (element as IXmlLineInfo).LineNumber);
+                throw new FileParseException("Duplicate '" + elementName + "' elements",
+                    (element as IXmlLineInfo).LineNumber);
             var foundElement = foundElements[0];
             if (!optional)
             {
                 if (String.IsNullOrEmpty(foundElement.Value))
-                    throw new FileParseException("Invalid '" + elementName + "' value: '" + foundElement.Value + "'", ((IXmlLineInfo) foundElement).LineNumber);
+                    throw new FileParseException("Invalid '" + elementName + "' value: '" + foundElement.Value + "'",
+                        ((IXmlLineInfo) foundElement).LineNumber);
             }
             return foundElement;
         }
@@ -80,7 +88,8 @@ namespace BrickUtilities.BrickLink
                 case "O": return BLItemType.OriginalBox;
                 case "U": return BLItemType.UnsortedLot;
                 default:
-                    throw new FileParseException("Invalid 'ITEMTYPE' value: '" + s + "'", (element as IXmlLineInfo).LineNumber);
+                    throw new FileParseException("Invalid 'ITEMTYPE' value: '" + s + "'",
+                        (element as IXmlLineInfo).LineNumber);
             }
         }
 
@@ -95,7 +104,7 @@ namespace BrickUtilities.BrickLink
             if (String.IsNullOrEmpty(e.Value))
                 return null;
 
-            if(!Int32.TryParse(e.Value, out var colorId))
+            if (!Int32.TryParse(e.Value, out var colorId))
                 throw new FileParseException("Invalid 'COLOR' value: '" + e.Value + "'", ((IXmlLineInfo) e).LineNumber);
 
             return new BLColorId(colorId);
@@ -113,7 +122,8 @@ namespace BrickUtilities.BrickLink
                 return null;
 
             if (!Int32.TryParse(e.Value, out var value))
-                throw new FileParseException("Invalid '" + name + "' value: '" + e.Value + "'", ((IXmlLineInfo) e).LineNumber);
+                throw new FileParseException("Invalid '" + name + "' value: '" + e.Value + "'",
+                    ((IXmlLineInfo) e).LineNumber);
 
             return value;
         }
@@ -130,7 +140,8 @@ namespace BrickUtilities.BrickLink
                 return null;
 
             if (!double.TryParse(e.Value, out var value))
-                throw new FileParseException("Invalid '" + name + "' value: '" + e.Value + "'", ((IXmlLineInfo) e).LineNumber);
+                throw new FileParseException("Invalid '" + name + "' value: '" + e.Value + "'",
+                    ((IXmlLineInfo) e).LineNumber);
 
             return value;
         }
@@ -164,7 +175,7 @@ namespace BrickUtilities.BrickLink
                 var minQuantity = ParseInt(itemElement, "MINQTY");
                 var quantityFilled = ParseInt(itemElement, "QTYFILLED");
                 var maxPrice = ParseDouble(itemElement, "MAXPRICE");
-                
+
                 var item = new BLPartsListItem(itemType, itemNumber, colorId, maxPrice, minQuantity, quantityFilled);
                 items.Add(item);
             }

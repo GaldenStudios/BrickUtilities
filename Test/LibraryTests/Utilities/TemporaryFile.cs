@@ -1,4 +1,9 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
+using System;
 using System.IO;
 
 namespace LibraryTests.Utilities
@@ -6,10 +11,8 @@ namespace LibraryTests.Utilities
     /// <summary>
     /// Temporary file
     /// </summary>
-    internal class TemporaryFile: IDisposable
+    internal class TemporaryFile : IDisposable
     {
-        public string Path { get; }
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -26,6 +29,8 @@ namespace LibraryTests.Utilities
             Path = System.IO.Path.GetTempFileName();
             File.WriteAllText(Path, contents);
         }
+
+        public string Path { get; }
 
         /// <summary>
         /// Dispose

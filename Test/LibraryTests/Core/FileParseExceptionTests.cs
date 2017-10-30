@@ -1,4 +1,9 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
+using System;
 using BrickUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

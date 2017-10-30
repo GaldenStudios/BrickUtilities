@@ -1,18 +1,22 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
+using BrickUtilities;
 using BrickUtilities.BrickLink;
 using LibraryTests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BrickUtilities;
 
 namespace LibraryTests.BrickLink
 {
     [TestClass]
     public class BLPartsListFileTests
     {
-
         #region --------------------------------------------- Helpers
 
         /// <summary>
@@ -54,7 +58,7 @@ namespace LibraryTests.BrickLink
         {
             var item = new BLPartsListItem(
                 BLItemType.Part, "3001", new BLColorId(5), 5.1, 100, 50);
-            var itemList = new List<BLPartsListItem> { item };
+            var itemList = new List<BLPartsListItem> {item};
 
             var blfile = new BLPartsListFile(itemList);
             Assert.AreEqual(1, blfile.Items.Count);
@@ -554,7 +558,7 @@ namespace LibraryTests.BrickLink
 
             var item = new BLPartsListItem(
                 BLItemType.Part, "3001", new BLColorId(5), 5.1, 100, 50);
-            var itemList = new List<BLPartsListItem> { item };
+            var itemList = new List<BLPartsListItem> {item};
 
             var blfile = new BLPartsListFile(itemList);
             using (var temporaryFile = new TemporaryFile())
@@ -587,7 +591,7 @@ namespace LibraryTests.BrickLink
                 BLItemType.Part, "3622");
             var item2 = new BLPartsListItem(
                 BLItemType.Part, "3623");
-            var itemList = new List<BLPartsListItem> { item1, item2 };
+            var itemList = new List<BLPartsListItem> {item1, item2};
 
             var blfile = new BLPartsListFile(itemList);
             using (var temporaryFile = new TemporaryFile())
@@ -614,7 +618,7 @@ namespace LibraryTests.BrickLink
 
             var item = new BLPartsListItem(
                 BLItemType.Part, "3001");
-            var itemList = new List<BLPartsListItem> { item };
+            var itemList = new List<BLPartsListItem> {item};
 
             var blfile = new BLPartsListFile(itemList);
             using (var temporaryFile = new TemporaryFile())
@@ -646,7 +650,7 @@ namespace LibraryTests.BrickLink
                   </INVENTORY>";
 
                 var item = new BLPartsListItem(itemType, "X");
-                var itemList = new List<BLPartsListItem> { item };
+                var itemList = new List<BLPartsListItem> {item};
                 var blfile = new BLPartsListFile(itemList);
 
                 using (var temporaryFile = new TemporaryFile())

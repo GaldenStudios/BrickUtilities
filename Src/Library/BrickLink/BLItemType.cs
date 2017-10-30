@@ -1,4 +1,9 @@
-﻿namespace BrickUtilities.BrickLink
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
+namespace BrickUtilities.BrickLink
 {
     /// <summary>
     /// Represents an item type

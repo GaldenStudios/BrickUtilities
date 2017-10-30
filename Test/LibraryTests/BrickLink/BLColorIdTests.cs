@@ -1,4 +1,9 @@
-﻿using BrickUtilities.BrickLink;
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
+using BrickUtilities.BrickLink;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LibraryTests.BrickLink

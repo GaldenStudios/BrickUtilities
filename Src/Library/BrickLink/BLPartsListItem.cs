@@ -1,4 +1,9 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// BrickUtilities
+// Copyright (c) 2017 Galden Studios
+// -----------------------------------------------------------------------
+
+using System;
 
 namespace BrickUtilities.BrickLink
 {
@@ -10,6 +15,28 @@ namespace BrickUtilities.BrickLink
     /// </remarks>
     public class BLPartsListItem
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="itemType">Item type</param>
+        /// <param name="itemNumber">Item number</param>
+        /// <param name="colorId">Color id</param>
+        /// <param name="maximumPrice">Maximum price</param>
+        /// <param name="minimumDesiredQuantity">Minimum desired quantity</param>
+        /// <param name="quantityFilled">Quantity filled</param>
+        public BLPartsListItem(BLItemType itemType, string itemNumber, BLColorId? colorId = null,
+            double? maximumPrice = null, int? minimumDesiredQuantity = null, int? quantityFilled = null)
+        {
+            ItemType = itemType;
+            if (String.IsNullOrEmpty(itemNumber))
+                throw new ArgumentNullException(nameof(itemNumber));
+            ItemNumber = itemNumber;
+            ColorId = colorId;
+            MaximumPrice = maximumPrice;
+            MinimumDesiredQuantity = minimumDesiredQuantity;
+            QuantityFilled = quantityFilled;
+        }
+
         /// <summary>
         /// Item type
         /// </summary>
@@ -41,34 +68,14 @@ namespace BrickUtilities.BrickLink
         public int? QuantityFilled { get; }
 
         /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="itemType">Item type</param>
-        /// <param name="itemNumber">Item number</param>
-        /// <param name="colorId">Color id</param>
-        /// <param name="maximumPrice">Maximum price</param>
-        /// <param name="minimumDesiredQuantity">Minimum desired quantity</param>
-        /// <param name="quantityFilled">Quantity filled</param>
-        public BLPartsListItem(BLItemType itemType, string itemNumber, BLColorId? colorId = null, double? maximumPrice = null, int? minimumDesiredQuantity = null, int? quantityFilled = null)
-        {
-            ItemType = itemType;
-            if(String.IsNullOrEmpty(itemNumber))
-                throw new ArgumentNullException(nameof(itemNumber));
-            ItemNumber = itemNumber;
-            ColorId = colorId;
-            MaximumPrice = maximumPrice;
-            MinimumDesiredQuantity = minimumDesiredQuantity;
-            QuantityFilled = quantityFilled;
-        }
-
-        /// <summary>
         /// Update minimum desired quantity.
         /// </summary>
         /// <param name="newMinimumDesiredQuantity">New value for minimum desired quantity.</param>
         /// <returns>New object with updated minimum desired quantity.</returns>
         public BLPartsListItem UpdateMinimimDesiredQuantity(int? newMinimumDesiredQuantity)
         {
-            return new BLPartsListItem(ItemType, ItemNumber, ColorId, MaximumPrice, newMinimumDesiredQuantity, QuantityFilled);
+            return new BLPartsListItem(ItemType, ItemNumber, ColorId, MaximumPrice, newMinimumDesiredQuantity,
+                QuantityFilled);
         }
 
         /// <summary>
@@ -78,7 +85,8 @@ namespace BrickUtilities.BrickLink
         /// <returns>New object with updated minimum desired quantity.</returns>
         public BLPartsListItem UpdateQuantityFilled(int? newQuantityFilled)
         {
-            return new BLPartsListItem(ItemType, ItemNumber, ColorId, MaximumPrice, MinimumDesiredQuantity, newQuantityFilled);
+            return new BLPartsListItem(ItemType, ItemNumber, ColorId, MaximumPrice, MinimumDesiredQuantity,
+                newQuantityFilled);
         }
     }
 }
