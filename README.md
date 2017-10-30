@@ -8,5 +8,5 @@ Current features include:
 
 More features will be added in the future.
 
-For more information, see the [documentation](https://galdenstudios.github.io/BrickUtilities/Docs) or contact info@galdenstudios.com.
+For more information, see the [documentation](https://galdenstudios.github.io/BrickUtilities/) or contact info@galdenstudios.com.
 
