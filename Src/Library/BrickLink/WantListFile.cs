@@ -15,34 +15,34 @@ using System.Xml.Linq;
 namespace BrickUtilities.BrickLink
 {
     /// <summary>
-    /// Represents a parts list file from BrickLink
+    /// Represents a want list file from BrickLink
     /// </summary>
     /// <remarks>
     /// Based on the spec at https://www.bricklink.com/help.asp?helpID=207 .
     /// </remarks>
-    public class BLPartsListFile
+    public class WantListFile
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        private BLPartsListFile(List<BLPartsListItem> items)
+        private WantListFile(List<WantListItem> items)
         {
-            Items = new ReadOnlyCollection<BLPartsListItem>(items);
+            Items = new ReadOnlyCollection<WantListItem>(items);
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public BLPartsListFile(
-            IEnumerable<BLPartsListItem> items)
+        public WantListFile(
+            IEnumerable<WantListItem> items)
         {
-            Items = new ReadOnlyCollection<BLPartsListItem>(new List<BLPartsListItem>(items));
+            Items = new ReadOnlyCollection<WantListItem>(new List<WantListItem>(items));
         }
 
         /// <summary>
         /// Items
         /// </summary>
-        public ReadOnlyCollection<BLPartsListItem> Items { get; }
+        public ReadOnlyCollection<WantListItem> Items { get; }
 
         /// <summary>
         /// Get child element
@@ -73,20 +73,20 @@ namespace BrickUtilities.BrickLink
         /// <summary>
         /// Parse item type
         /// </summary>
-        private static BLItemType ParseItemType(XElement element)
+        private static WantListItemType ParseItemType(XElement element)
         {
             var s = ParseChildElement(element, "ITEMTYPE", false).Value;
             switch (s)
             {
-                case "S": return BLItemType.Set;
-                case "P": return BLItemType.Part;
-                case "M": return BLItemType.Minifig;
-                case "B": return BLItemType.Book;
-                case "G": return BLItemType.Gear;
-                case "C": return BLItemType.Catalog;
-                case "I": return BLItemType.Instruction;
-                case "O": return BLItemType.OriginalBox;
-                case "U": return BLItemType.UnsortedLot;
+                case "S": return WantListItemType.Set;
+                case "P": return WantListItemType.Part;
+                case "M": return WantListItemType.Minifig;
+                case "B": return WantListItemType.Book;
+                case "G": return WantListItemType.Gear;
+                case "C": return WantListItemType.Catalog;
+                case "I": return WantListItemType.Instruction;
+                case "O": return WantListItemType.OriginalBox;
+                case "U": return WantListItemType.UnsortedLot;
                 default:
                     throw new FileParseException("Invalid 'ITEMTYPE' value: '" + s + "'",
                         (element as IXmlLineInfo).LineNumber);
@@ -96,7 +96,7 @@ namespace BrickUtilities.BrickLink
         /// <summary>
         /// Parse item type
         /// </summary>
-        private static BLColorId? ParseColorId(XElement element)
+        private static WantListColorId? ParseColorId(XElement element)
         {
             var e = ParseChildElement(element, "COLOR", true);
             if (e == null)
@@ -107,7 +107,7 @@ namespace BrickUtilities.BrickLink
             if (!Int32.TryParse(e.Value, out var colorId))
                 throw new FileParseException("Invalid 'COLOR' value: '" + e.Value + "'", ((IXmlLineInfo) e).LineNumber);
 
-            return new BLColorId(colorId);
+            return new WantListColorId(colorId);
         }
 
         /// <summary>
@@ -147,11 +147,11 @@ namespace BrickUtilities.BrickLink
         }
 
         /// <summary>
-        /// Loads a BrickLink-style parts list file
+        /// Loads a BrickLink-style want list file
         /// </summary>
         /// <param name="path">Path to the file</param>
-        /// <returns>Parts list file</returns>
-        public static BLPartsListFile Load(string path)
+        /// <returns>Want list file</returns>
+        public static WantListFile Load(string path)
         {
             XDocument xdoc;
             try
@@ -166,7 +166,7 @@ namespace BrickUtilities.BrickLink
             if (root.Name != "INVENTORY")
                 throw new FileParseException("Missing root 'INVENTORY' element", ((IXmlLineInfo) root).LineNumber);
 
-            var items = new List<BLPartsListItem>();
+            var items = new List<WantListItem>();
             foreach (var itemElement in root.Elements("ITEM"))
             {
                 var itemType = ParseItemType(itemElement);
@@ -176,11 +176,11 @@ namespace BrickUtilities.BrickLink
                 var quantityFilled = ParseInt(itemElement, "QTYFILLED");
                 var maxPrice = ParseDouble(itemElement, "MAXPRICE");
 
-                var item = new BLPartsListItem(itemType, itemNumber, colorId, maxPrice, minQuantity, quantityFilled);
+                var item = new WantListItem(itemType, itemNumber, colorId, maxPrice, minQuantity, quantityFilled);
                 items.Add(item);
             }
 
-            return new BLPartsListFile(items);
+            return new WantListFile(items);
         }
 
         /// <summary>
@@ -200,31 +200,31 @@ namespace BrickUtilities.BrickLink
                     string itemType;
                     switch (item.ItemType)
                     {
-                        case BLItemType.Book:
+                        case WantListItemType.Book:
                             itemType = "B";
                             break;
-                        case BLItemType.Catalog:
+                        case WantListItemType.Catalog:
                             itemType = "C";
                             break;
-                        case BLItemType.Gear:
+                        case WantListItemType.Gear:
                             itemType = "G";
                             break;
-                        case BLItemType.Instruction:
+                        case WantListItemType.Instruction:
                             itemType = "I";
                             break;
-                        case BLItemType.Minifig:
+                        case WantListItemType.Minifig:
                             itemType = "M";
                             break;
-                        case BLItemType.OriginalBox:
+                        case WantListItemType.OriginalBox:
                             itemType = "O";
                             break;
-                        case BLItemType.Part:
+                        case WantListItemType.Part:
                             itemType = "P";
                             break;
-                        case BLItemType.Set:
+                        case WantListItemType.Set:
                             itemType = "S";
                             break;
-                        case BLItemType.UnsortedLot:
+                        case WantListItemType.UnsortedLot:
                             itemType = "U";
                             break;
                         default:

@@ -11,7 +11,7 @@ namespace BrickUtilities.BrickLink
     /// <remarks>
     /// Based on the spec at https://www.bricklink.com/help.asp?helpID=207 .
     /// </remarks>
-    public enum BLItemType
+    public enum WantListItemType
     {
         /// <summary>
         /// Set

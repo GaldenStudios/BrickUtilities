@@ -10,13 +10,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LibraryTests.BrickLink
 {
     [TestClass]
-    public class BLPartsListItemTests
+    public class WantListItemTests
     {
         [TestMethod]
-        public void BLPartsListItemTests_Create()
+        public void WantListItemTests_Create()
         {
-            var item = new BLPartsListItem(BLItemType.Part, "3001", new BLColorId(20), 5.1, 100, 50);
-            Assert.AreEqual(BLItemType.Part, item.ItemType);
+            var item = new WantListItem(WantListItemType.Part, "3001", new BrickUtilities.BrickLink.WantListColorId(20), 5.1, 100, 50);
+            Assert.AreEqual(WantListItemType.Part, item.ItemType);
             Assert.AreEqual("3001", item.ItemNumber);
             Assert.IsNotNull(item.ColorId);
             Assert.AreEqual(20, item.ColorId.Value);
@@ -26,12 +26,12 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListItemTests_CreateWithInvalidItemNumber()
+        public void WantListItemTests_CreateWithInvalidItemNumber()
         {
             try
             {
                 // ReSharper disable once ObjectCreationAsStatement
-                new BLPartsListItem(BLItemType.Part, null, new BLColorId(20), 5.1, 100, 50);
+                new WantListItem(WantListItemType.Part, null, new BrickUtilities.BrickLink.WantListColorId(20), 5.1, 100, 50);
                 Assert.Fail();
             }
             catch (ArgumentNullException e)
@@ -41,9 +41,9 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListItemTests_UpdateMinimumDesiredQuantity()
+        public void WantListItemTests_UpdateMinimumDesiredQuantity()
         {
-            var item = new BLPartsListItem(BLItemType.Part, "3001", new BLColorId(20), 5.1, 100, 50);
+            var item = new WantListItem(WantListItemType.Part, "3001", new BrickUtilities.BrickLink.WantListColorId(20), 5.1, 100, 50);
 
             var item2 = item.UpdateMinimimDesiredQuantity(150);
 
@@ -56,9 +56,9 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListItemTests_UpdateQuantityFilled()
+        public void WantListItemTests_UpdateQuantityFilled()
         {
-            var item = new BLPartsListItem(BLItemType.Part, "3001", new BLColorId(20), 5.1, 100, 50);
+            var item = new WantListItem(WantListItemType.Part, "3001", new BrickUtilities.BrickLink.WantListColorId(20), 5.1, 100, 50);
 
             var item2 = item.UpdateQuantityFilled(75);
 

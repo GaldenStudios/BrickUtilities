@@ -51,9 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\FileParseExceptionTests.cs" />
-    <Compile Include="BrickLink\BLColorIdTests.cs" />
-    <Compile Include="BrickLink\BLPartsListFileTests.cs" />
-    <Compile Include="BrickLink\BLPartsListItemTests.cs" />
+    <Compile Include="BrickLink\WantListColorIdTests.cs" />
+    <Compile Include="BrickLink\WantListFileTests.cs" />
+    <Compile Include="BrickLink\WantListItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\TemporaryFile.cs" />
   </ItemGroup>

@@ -15,34 +15,34 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LibraryTests.BrickLink
 {
     [TestClass]
-    public class BLPartsListFileTests
+    public class WantListFileTests
     {
         #region --------------------------------------------- Helpers
 
         /// <summary>
         /// GetItemTypeString
         /// </summary>
-        private static string GetItemTypeString(BLItemType itemType)
+        private static string GetItemTypeString(WantListItemType itemType)
         {
             switch (itemType)
             {
-                case BLItemType.Set:
+                case WantListItemType.Set:
                     return "S";
-                case BLItemType.Part:
+                case WantListItemType.Part:
                     return "P";
-                case BLItemType.Minifig:
+                case WantListItemType.Minifig:
                     return "M";
-                case BLItemType.Book:
+                case WantListItemType.Book:
                     return "B";
-                case BLItemType.Gear:
+                case WantListItemType.Gear:
                     return "G";
-                case BLItemType.Catalog:
+                case WantListItemType.Catalog:
                     return "C";
-                case BLItemType.Instruction:
+                case WantListItemType.Instruction:
                     return "I";
-                case BLItemType.OriginalBox:
+                case WantListItemType.OriginalBox:
                     return "O";
-                case BLItemType.UnsortedLot:
+                case WantListItemType.UnsortedLot:
                     return "U";
                 default:
                     throw new InvalidOperationException("Invalid itemtype: '" + itemType + "'");
@@ -54,13 +54,13 @@ namespace LibraryTests.BrickLink
         #region --------------------------------------------- Constructor
 
         [TestMethod]
-        public void BLPartsListFileTests_ConstructorSingleItem()
+        public void WantListFileTests_ConstructorSingleItem()
         {
-            var item = new BLPartsListItem(
-                BLItemType.Part, "3001", new BLColorId(5), 5.1, 100, 50);
-            var itemList = new List<BLPartsListItem> {item};
+            var item = new WantListItem(
+                WantListItemType.Part, "3001", new BrickUtilities.BrickLink.WantListColorId(5), 5.1, 100, 50);
+            var itemList = new List<WantListItem> {item};
 
-            var blfile = new BLPartsListFile(itemList);
+            var blfile = new WantListFile(itemList);
             Assert.AreEqual(1, blfile.Items.Count);
             Assert.AreSame(item, blfile.Items[0]);
         }
@@ -70,7 +70,7 @@ namespace LibraryTests.BrickLink
         #region --------------------------------------------- Load
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadOneItem()
+        public void WantListFileTests_LoadOneItem()
         {
             string data = @"
                 <INVENTORY>
@@ -91,12 +91,12 @@ namespace LibraryTests.BrickLink
 
             using (var file = new TemporaryFile(data))
             {
-                var blfile = BLPartsListFile.Load(file.Path);
+                var blfile = WantListFile.Load(file.Path);
 
                 Assert.AreEqual(1, blfile.Items.Count);
 
                 var item = blfile.Items[0];
-                Assert.AreEqual(BLItemType.Part, item.ItemType);
+                Assert.AreEqual(WantListItemType.Part, item.ItemType);
                 Assert.AreEqual("3001", item.ItemNumber);
                 Assert.AreEqual(1.00, item.MaximumPrice);
                 Assert.AreEqual(100, item.MinimumDesiredQuantity);
@@ -107,7 +107,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadOneItemMinimumData()
+        public void WantListFileTests_LoadOneItemMinimumData()
         {
             string data = @"
                 <INVENTORY>
@@ -119,7 +119,7 @@ namespace LibraryTests.BrickLink
 
             using (var file = new TemporaryFile(data))
             {
-                var blfile = BLPartsListFile.Load(file.Path);
+                var blfile = WantListFile.Load(file.Path);
 
                 Assert.AreEqual(1, blfile.Items.Count);
 
@@ -128,13 +128,13 @@ namespace LibraryTests.BrickLink
                 Assert.IsNull(item.ColorId);
                 Assert.IsNull(item.MinimumDesiredQuantity);
                 Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(BLItemType.Part, item.ItemType);
+                Assert.AreEqual(WantListItemType.Part, item.ItemType);
                 Assert.AreEqual("3622", item.ItemNumber);
             }
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadOneItemWithEmptyOptionalElements()
+        public void WantListFileTests_LoadOneItemWithEmptyOptionalElements()
         {
             string data = @"
                 <INVENTORY>
@@ -155,7 +155,7 @@ namespace LibraryTests.BrickLink
 
             using (var file = new TemporaryFile(data))
             {
-                var blfile = BLPartsListFile.Load(file.Path);
+                var blfile = WantListFile.Load(file.Path);
 
                 Assert.AreEqual(1, blfile.Items.Count);
 
@@ -164,13 +164,13 @@ namespace LibraryTests.BrickLink
                 Assert.IsNull(item.ColorId);
                 Assert.IsNull(item.MinimumDesiredQuantity);
                 Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(BLItemType.Part, item.ItemType);
+                Assert.AreEqual(WantListItemType.Part, item.ItemType);
                 Assert.AreEqual("3622", item.ItemNumber);
             }
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadMultipleItems()
+        public void WantListFileTests_LoadMultipleItems()
         {
             string data = @"
                 <INVENTORY>
@@ -186,7 +186,7 @@ namespace LibraryTests.BrickLink
 
             using (var file = new TemporaryFile(data))
             {
-                var blfile = BLPartsListFile.Load(file.Path);
+                var blfile = WantListFile.Load(file.Path);
 
                 Assert.AreEqual(2, blfile.Items.Count);
 
@@ -195,7 +195,7 @@ namespace LibraryTests.BrickLink
                 Assert.IsNull(item.ColorId);
                 Assert.IsNull(item.MinimumDesiredQuantity);
                 Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(BLItemType.Part, item.ItemType);
+                Assert.AreEqual(WantListItemType.Part, item.ItemType);
                 Assert.AreEqual("3622", item.ItemNumber);
 
                 item = blfile.Items[1];
@@ -203,13 +203,13 @@ namespace LibraryTests.BrickLink
                 Assert.IsNull(item.ColorId);
                 Assert.IsNull(item.MinimumDesiredQuantity);
                 Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(BLItemType.Part, item.ItemType);
+                Assert.AreEqual(WantListItemType.Part, item.ItemType);
                 Assert.AreEqual("3623", item.ItemNumber);
             }
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadMissingRootItem()
+        public void WantListFileTests_LoadMissingRootItem()
         {
             using (var file = new TemporaryFile())
             {
@@ -217,7 +217,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -230,7 +230,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadMissingInventoryItem()
+        public void WantListFileTests_LoadMissingInventoryItem()
         {
             string data = @"
                 <X>
@@ -242,7 +242,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -254,7 +254,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadMissingItemType()
+        public void WantListFileTests_LoadMissingItemType()
         {
             string data = @"
                 <INVENTORY>
@@ -269,7 +269,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -281,7 +281,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadInvalidItemType()
+        public void WantListFileTests_LoadInvalidItemType()
         {
             string data = @"
                 <INVENTORY>
@@ -297,7 +297,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -309,9 +309,9 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadAllItemTypes()
+        public void WantListFileTests_LoadAllItemTypes()
         {
-            foreach (BLItemType itemType in Enum.GetValues(typeof(BLItemType)))
+            foreach (WantListItemType itemType in Enum.GetValues(typeof(WantListItemType)))
             {
                 var itemTypeString = GetItemTypeString(itemType);
 
@@ -329,7 +329,7 @@ namespace LibraryTests.BrickLink
                 {
                     File.WriteAllText(file.Path, data);
 
-                    var blfile = BLPartsListFile.Load(file.Path);
+                    var blfile = WantListFile.Load(file.Path);
 
                     Assert.AreEqual(1, blfile.Items.Count);
                     Assert.AreEqual(itemType, blfile.Items[0].ItemType);
@@ -338,7 +338,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadMissingItemId()
+        public void WantListFileTests_LoadMissingItemId()
         {
             string data = @"
                 <INVENTORY>
@@ -353,7 +353,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -365,7 +365,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadEmptyItemId()
+        public void WantListFileTests_LoadEmptyItemId()
         {
             string data = @"
                 <INVENTORY>
@@ -381,7 +381,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -393,7 +393,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadDuplicateItemId()
+        public void WantListFileTests_LoadDuplicateItemId()
         {
             string data = @"
                 <INVENTORY>
@@ -410,7 +410,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -422,7 +422,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadInvalidColorId()
+        public void WantListFileTests_LoadInvalidColorId()
         {
             string data = @"
                 <INVENTORY>
@@ -439,7 +439,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -451,7 +451,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadInvalidMinQuantity()
+        public void WantListFileTests_LoadInvalidMinQuantity()
         {
             string data = @"
                 <INVENTORY>
@@ -468,7 +468,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -480,7 +480,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadInvalidQuantityFilled()
+        public void WantListFileTests_LoadInvalidQuantityFilled()
         {
             string data = @"
                 <INVENTORY>
@@ -497,7 +497,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -509,7 +509,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_LoadInvalidMaxPrice()
+        public void WantListFileTests_LoadInvalidMaxPrice()
         {
             string data = @"
                 <INVENTORY>
@@ -526,7 +526,7 @@ namespace LibraryTests.BrickLink
 
                 try
                 {
-                    BLPartsListFile.Load(file.Path);
+                    WantListFile.Load(file.Path);
                     Assert.Fail();
                 }
                 catch (FileParseException e)
@@ -542,7 +542,7 @@ namespace LibraryTests.BrickLink
         #region --------------------------------------------- Save
 
         [TestMethod]
-        public void BLPartsListFileTests_SaveSingleItem()
+        public void WantListFileTests_SaveSingleItem()
         {
             string data = @"
                 <INVENTORY>
@@ -556,11 +556,11 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                 </INVENTORY>";
 
-            var item = new BLPartsListItem(
-                BLItemType.Part, "3001", new BLColorId(5), 5.1, 100, 50);
-            var itemList = new List<BLPartsListItem> {item};
+            var item = new WantListItem(
+                WantListItemType.Part, "3001", new BrickUtilities.BrickLink.WantListColorId(5), 5.1, 100, 50);
+            var itemList = new List<WantListItem> {item};
 
-            var blfile = new BLPartsListFile(itemList);
+            var blfile = new WantListFile(itemList);
             using (var temporaryFile = new TemporaryFile())
             {
                 blfile.Save(temporaryFile.Path);
@@ -573,7 +573,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_SaveMultipleItems()
+        public void WantListFileTests_SaveMultipleItems()
         {
             const string data = @"
                 <INVENTORY>
@@ -587,13 +587,13 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                 </INVENTORY>";
 
-            var item1 = new BLPartsListItem(
-                BLItemType.Part, "3622");
-            var item2 = new BLPartsListItem(
-                BLItemType.Part, "3623");
-            var itemList = new List<BLPartsListItem> {item1, item2};
+            var item1 = new WantListItem(
+                WantListItemType.Part, "3622");
+            var item2 = new WantListItem(
+                WantListItemType.Part, "3623");
+            var itemList = new List<WantListItem> {item1, item2};
 
-            var blfile = new BLPartsListFile(itemList);
+            var blfile = new WantListFile(itemList);
             using (var temporaryFile = new TemporaryFile())
             {
                 blfile.Save(temporaryFile.Path);
@@ -606,7 +606,7 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_SaveMinimumItem()
+        public void WantListFileTests_SaveMinimumItem()
         {
             string data = @"
                 <INVENTORY>
@@ -616,11 +616,11 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                 </INVENTORY>";
 
-            var item = new BLPartsListItem(
-                BLItemType.Part, "3001");
-            var itemList = new List<BLPartsListItem> {item};
+            var item = new WantListItem(
+                WantListItemType.Part, "3001");
+            var itemList = new List<WantListItem> {item};
 
-            var blfile = new BLPartsListFile(itemList);
+            var blfile = new WantListFile(itemList);
             using (var temporaryFile = new TemporaryFile())
             {
                 blfile.Save(temporaryFile.Path);
@@ -633,9 +633,9 @@ namespace LibraryTests.BrickLink
         }
 
         [TestMethod]
-        public void BLPartsListFileTests_SaveAllItemTypes()
+        public void WantListFileTests_SaveAllItemTypes()
         {
-            foreach (BLItemType itemType in Enum.GetValues(typeof(BLItemType)))
+            foreach (WantListItemType itemType in Enum.GetValues(typeof(WantListItemType)))
             {
                 var itemTypeString = GetItemTypeString(itemType);
 
@@ -649,9 +649,9 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                   </INVENTORY>";
 
-                var item = new BLPartsListItem(itemType, "X");
-                var itemList = new List<BLPartsListItem> {item};
-                var blfile = new BLPartsListFile(itemList);
+                var item = new WantListItem(itemType, "X");
+                var itemList = new List<WantListItem> {item};
+                var blfile = new WantListFile(itemList);
 
                 using (var temporaryFile = new TemporaryFile())
                 {
