@@ -1,0 +1,253 @@
+{
+  "homepages": [],
+  "source_base_path": "K:/dev/BrickUtilities/Build/BuildDocs",
+  "xrefmap": [
+    "xrefmap.yml",
+    "4.0.xrefmap.yml"
+  ],
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "iHIdiJ36bDl2c5Q93CPBMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/bricklinksamples.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/bricklinksamples.html",
+          "hash": "wG1LdJWUcvPkS88v1epM1w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/GaldenStudios.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/GaldenStudios.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "qO1wgQGp3FYtySO18zVkAA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/BrickUtilities.BrickLink.WantListColorId.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/BrickUtilities.BrickLink.WantListColorId.html",
+          "hash": "APtZ8qmfbl0MIRRVQH5SJg=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/BrickUtilities.BrickLink.WantListFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/BrickUtilities.BrickLink.WantListFile.html",
+          "hash": "t78cjhVLINcNlXfIQnLRUQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/BrickUtilities.BrickLink.WantListItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/BrickUtilities.BrickLink.WantListItem.html",
+          "hash": "oGlBBuTXU5MtViFWprQ7+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/BrickUtilities.BrickLink.WantListItemType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/BrickUtilities.BrickLink.WantListItemType.html",
+          "hash": "UFN1zer2Aw76U37jpev7Jw=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/BrickUtilities.BrickLink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/BrickUtilities.BrickLink.html",
+          "hash": "SVA2TLlF4klMFsF/Uo2m7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/BrickUtilities.FileParseException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/BrickUtilities.FileParseException.html",
+          "hash": "bu2ARkleDlyixjVpXg8rtA=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/BrickUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/BrickUtilities.html",
+          "hash": "JlmW6nb17GKVsBu5CIv/FQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "obj/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "APdLyqD9eeKI30tetdslKw=="
+        }
+      },
+      "is_incremental": false,
+      "version": "4.0"
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "kuhzOtsom+3t3UPihE2pzA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing"
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {
+    "4.0": {}
+  },
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    },
+    {
+      "xrefmap": "4.0.xrefmap.yml"
+    }
+  ]
+}
