@@ -25,13 +25,15 @@
                 "files": [
                     "api/**.yml"
                 ],
-                "cwd": "obj"
+                "cwd": "obj",
+                "version":  "4.0" 
             },
             {
                 "files": [
                     "api/*.md",
                     "toc.yml",
-                    "*.md"
+                    "*.md",
+                    "articles/*.md"
                 ],
                 "exclude": [
                     "obj/**",
