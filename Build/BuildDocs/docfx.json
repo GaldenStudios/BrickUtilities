@@ -26,7 +26,6 @@
                     "api/**.yml"
                 ],
                 "cwd": "obj",
-                "version":  "4.0" 
             },
             {
                 "files": [
