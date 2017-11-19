@@ -11,4 +11,5 @@ For complete details, see the [API documentation](api/index.md).
 
 Source code available on [GitHub repro](https://github.com/GaldenStudios/BrickUtilities)
 
+Documentation version: [!include[Version](../../gitinfo.txt)]
 

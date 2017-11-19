@@ -50,6 +50,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrickLink\BrickLinkSamples.cs" />
     <Compile Include="Core\FileParseExceptionTests.cs" />
     <Compile Include="BrickLink\WantListColorIdTests.cs" />
     <Compile Include="BrickLink\WantListFileTests.cs" />
