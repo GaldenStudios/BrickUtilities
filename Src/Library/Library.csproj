@@ -3,14 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>BrickUtilities</PackageId>
+    <PackageId>GaldenStudios.BrickUtilities</PackageId>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>BrickUtilities</AssemblyName>
     <RootNamespace>BrickUtilities</RootNamespace>
     <Authors>Galden Studios</Authors>
     <PackageProjectUrl>https://github.com/GaldenStudios/BrickUtilities</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/GaldenStudios/BrickUtilities/blob/master/license.txt</PackageLicenseUrl>
-    <Description>Utilities for the LDraw system.  See http://ldraw.org for more information about the LDraw system.</Description>
+    <Description>Set of utilities for applications that manipulate "brick" data such as BrickLink want lists.</Description>
+    <Title>BrickUtilities</Title>
+    <Copyright>Copyright (c) 2017 Galden Studios</Copyright>
     <IncludeSource>True</IncludeSource>
     <IncludeSymbols>True</IncludeSymbols>
     <GitIgnoreTagVersion>True</GitIgnoreTagVersion>
