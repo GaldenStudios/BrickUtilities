@@ -63,20 +63,27 @@
 <h1 id="bricklink-samples">BrickLink samples</h1>
 
 <p>To load a BrickLink-style want list, use code like this:</p>
-<pre><code class="lang-csharp" name="SampleCode" title="xyz">Console.WriteLine(&quot;Loading file &quot; + FileName + &quot;...&quot;);
-var file = WantListFile.Load(FileName);
-
-Console.WriteLine(&quot;File contents:&quot;);
+<pre><code class="lang-csharp" name="SampleCode" title="LoadWantList">var file = WantListFile.Load(fileName);
 foreach (var item in file.Items)
 {
     Console.WriteLine(item.ItemNumber);
 }
 </code></pre><p>To create a new BrickLink-style want list, use code like this:</p>
-<pre><code class="lang-csharp" name="SampleCode" title="xyz">var item = new WantListItem(WantListItemType.Part, &quot;3622&quot;, new WantListColorId(11));
-var file = new WantListFile(new [] { item });
-
-Console.WriteLine(&quot;Saving file &quot; + FileName + &quot;...&quot;);
-file.Save(FileName);
+<pre><code class="lang-csharp" name="SampleCode" title="CreateWantList">var item = new WantListItem(WantListItemType.Part, &quot;3622&quot;, new WantListColorId(11));
+var file = new WantListFile(new[] { item });
+file.Save(fileName);
+</code></pre><p>To update a BrickLink-style want list, use code like this:</p>
+<pre><code class="lang-csharp" name="SampleCode" title="UpdateWantList">var file = WantListFile.Load(fileName);
+var newItems = new List&lt;WantListItem&gt;();
+foreach (var item in file.Items)
+{
+    if (item.ItemNumber != &quot;3622&quot;)
+        newItems.Add(item);
+    else
+        newItems.Add(item.UpdateMinimimDesiredQuantity(item.MinimumDesiredQuantity+1));
+}
+var newFile = new WantListFile(newItems);
+newFile.Save(fileName);
 </code></pre></article>
           </div>
           
