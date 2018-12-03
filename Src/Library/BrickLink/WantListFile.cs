@@ -149,25 +149,15 @@ namespace BrickUtilities.BrickLink
         /// <summary>
         /// Loads a BrickLink-style want list file
         /// </summary>
-        /// <param name="path">Path to the file</param>
+        /// <param name="rootElement">Root element of XML</param>
         /// <returns>Want list file</returns>
-        public static WantListFile Load(string path)
+        public static WantListFile Load(XElement rootElement)
         {
-            XDocument xdoc;
-            try
-            {
-                xdoc = XDocument.Load(path, LoadOptions.SetLineInfo);
-            }
-            catch (XmlException e)
-            {
-                throw new FileParseException("XML exception", e);
-            }
-            var root = xdoc.Root;
-            if (root.Name != "INVENTORY")
-                throw new FileParseException("Missing root 'INVENTORY' element", ((IXmlLineInfo) root).LineNumber);
+            if (rootElement.Name != "INVENTORY")
+                throw new FileParseException("Missing root 'INVENTORY' element", ((IXmlLineInfo)rootElement).LineNumber);
 
             var items = new List<WantListItem>();
-            foreach (var itemElement in root.Elements("ITEM"))
+            foreach (var itemElement in rootElement.Elements("ITEM"))
             {
                 var itemType = ParseItemType(itemElement);
                 var itemNumber = ParseChildElement(itemElement, "ITEMID", false).Value;
@@ -181,6 +171,26 @@ namespace BrickUtilities.BrickLink
             }
 
             return new WantListFile(items);
+        }
+
+        /// <summary>
+        /// Loads a BrickLink-style want list file
+        /// </summary>
+        /// <param name="path">Path to the file</param>
+        /// <returns>Want list file</returns>
+        public static WantListFile Load(string path)
+        {
+            XDocument xdoc;
+            try
+            {
+                xdoc = XDocument.Load(path, LoadOptions.SetLineInfo);
+            }
+            catch (XmlException e)
+            {
+                throw new FileParseException("XML exception", e);
+            }
+
+            return Load(xdoc.Root);
         }
 
         /// <summary>

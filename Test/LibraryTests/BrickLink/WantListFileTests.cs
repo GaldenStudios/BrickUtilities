@@ -67,7 +67,7 @@ namespace LibraryTests.BrickLink
 
         #endregion
 
-        #region --------------------------------------------- Load
+        #region --------------------------------------------- Load (via XML)
 
         [TestMethod]
         public void WantListFileTests_LoadOneItem()
@@ -89,21 +89,19 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile(data))
-            {
-                var blfile = WantListFile.Load(file.Path);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
+            var blfile = WantListFile.Load(xml);
 
-                Assert.AreEqual(1, blfile.Items.Count);
+            Assert.AreEqual(1, blfile.Items.Count);
 
-                var item = blfile.Items[0];
-                Assert.AreEqual(WantListItemType.Part, item.ItemType);
-                Assert.AreEqual("3001", item.ItemNumber);
-                Assert.AreEqual(1.00, item.MaximumPrice);
-                Assert.AreEqual(100, item.MinimumDesiredQuantity);
-                Assert.AreEqual(50, item.QuantityFilled);
-                Assert.IsNotNull(item.ColorId);
-                Assert.AreEqual(5, item.ColorId.Value);
-            }
+            var item = blfile.Items[0];
+            Assert.AreEqual(WantListItemType.Part, item.ItemType);
+            Assert.AreEqual("3001", item.ItemNumber);
+            Assert.AreEqual(1.00, item.MaximumPrice);
+            Assert.AreEqual(100, item.MinimumDesiredQuantity);
+            Assert.AreEqual(50, item.QuantityFilled);
+            Assert.IsNotNull(item.ColorId);
+            Assert.AreEqual(5, item.ColorId.Value);
         }
 
         [TestMethod]
@@ -117,20 +115,18 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile(data))
-            {
-                var blfile = WantListFile.Load(file.Path);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
+            var blfile = WantListFile.Load(xml);
 
-                Assert.AreEqual(1, blfile.Items.Count);
+            Assert.AreEqual(1, blfile.Items.Count);
 
-                var item = blfile.Items[0];
-                Assert.IsNull(item.MaximumPrice);
-                Assert.IsNull(item.ColorId);
-                Assert.IsNull(item.MinimumDesiredQuantity);
-                Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(WantListItemType.Part, item.ItemType);
-                Assert.AreEqual("3622", item.ItemNumber);
-            }
+            var item = blfile.Items[0];
+            Assert.IsNull(item.MaximumPrice);
+            Assert.IsNull(item.ColorId);
+            Assert.IsNull(item.MinimumDesiredQuantity);
+            Assert.IsNull(item.QuantityFilled);
+            Assert.AreEqual(WantListItemType.Part, item.ItemType);
+            Assert.AreEqual("3622", item.ItemNumber);
         }
 
         [TestMethod]
@@ -153,20 +149,18 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile(data))
-            {
-                var blfile = WantListFile.Load(file.Path);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
+            var blfile = WantListFile.Load(xml);
 
-                Assert.AreEqual(1, blfile.Items.Count);
+            Assert.AreEqual(1, blfile.Items.Count);
 
-                var item = blfile.Items[0];
-                Assert.IsNull(item.MaximumPrice);
-                Assert.IsNull(item.ColorId);
-                Assert.IsNull(item.MinimumDesiredQuantity);
-                Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(WantListItemType.Part, item.ItemType);
-                Assert.AreEqual("3622", item.ItemNumber);
-            }
+            var item = blfile.Items[0];
+            Assert.IsNull(item.MaximumPrice);
+            Assert.IsNull(item.ColorId);
+            Assert.IsNull(item.MinimumDesiredQuantity);
+            Assert.IsNull(item.QuantityFilled);
+            Assert.AreEqual(WantListItemType.Part, item.ItemType);
+            Assert.AreEqual("3622", item.ItemNumber);
         }
 
         [TestMethod]
@@ -184,49 +178,26 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile(data))
-            {
-                var blfile = WantListFile.Load(file.Path);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
+            var blfile = WantListFile.Load(xml);
 
-                Assert.AreEqual(2, blfile.Items.Count);
+            Assert.AreEqual(2, blfile.Items.Count);
 
-                var item = blfile.Items[0];
-                Assert.IsNull(item.MaximumPrice);
-                Assert.IsNull(item.ColorId);
-                Assert.IsNull(item.MinimumDesiredQuantity);
-                Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(WantListItemType.Part, item.ItemType);
-                Assert.AreEqual("3622", item.ItemNumber);
+            var item = blfile.Items[0];
+            Assert.IsNull(item.MaximumPrice);
+            Assert.IsNull(item.ColorId);
+            Assert.IsNull(item.MinimumDesiredQuantity);
+            Assert.IsNull(item.QuantityFilled);
+            Assert.AreEqual(WantListItemType.Part, item.ItemType);
+            Assert.AreEqual("3622", item.ItemNumber);
 
-                item = blfile.Items[1];
-                Assert.IsNull(item.MaximumPrice);
-                Assert.IsNull(item.ColorId);
-                Assert.IsNull(item.MinimumDesiredQuantity);
-                Assert.IsNull(item.QuantityFilled);
-                Assert.AreEqual(WantListItemType.Part, item.ItemType);
-                Assert.AreEqual("3623", item.ItemNumber);
-            }
-        }
-
-        [TestMethod]
-        public void WantListFileTests_LoadMissingRootItem()
-        {
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, "");
-
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("XML exception", e.Message);
-                    Assert.AreEqual(0, e.LineNumber);
-                    Assert.AreEqual("Root element is missing.", e.InnerException?.Message);
-                }
-            }
+            item = blfile.Items[1];
+            Assert.IsNull(item.MaximumPrice);
+            Assert.IsNull(item.ColorId);
+            Assert.IsNull(item.MinimumDesiredQuantity);
+            Assert.IsNull(item.QuantityFilled);
+            Assert.AreEqual(WantListItemType.Part, item.ItemType);
+            Assert.AreEqual("3623", item.ItemNumber);
         }
 
         [TestMethod]
@@ -236,20 +207,17 @@ namespace LibraryTests.BrickLink
                 <X>
                 </X>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Missing root 'INVENTORY' element", e.Message);
-                    Assert.AreEqual(2, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Missing root 'INVENTORY' element", e.Message);
+                Assert.AreEqual(2, e.LineNumber);
             }
         }
 
@@ -263,20 +231,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Missing 'ITEMTYPE' element", e.Message);
-                    Assert.AreEqual(3, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Missing 'ITEMTYPE' element", e.Message);
+                Assert.AreEqual(3, e.LineNumber);
             }
         }
 
@@ -291,20 +256,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Invalid 'ITEMTYPE' value: 'X'", e.Message);
-                    Assert.AreEqual(3, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Invalid 'ITEMTYPE' value: 'X'", e.Message);
+                Assert.AreEqual(3, e.LineNumber);
             }
         }
 
@@ -325,15 +287,11 @@ namespace LibraryTests.BrickLink
                   </ITEM>
                   </INVENTORY>";
 
-                using (var file = new TemporaryFile())
-                {
-                    File.WriteAllText(file.Path, data);
+                var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
+                var blfile = WantListFile.Load(xml);
 
-                    var blfile = WantListFile.Load(file.Path);
-
-                    Assert.AreEqual(1, blfile.Items.Count);
-                    Assert.AreEqual(itemType, blfile.Items[0].ItemType);
-                }
+                Assert.AreEqual(1, blfile.Items.Count);
+                Assert.AreEqual(itemType, blfile.Items[0].ItemType);
             }
         }
 
@@ -347,20 +305,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Missing 'ITEMID' element", e.Message);
-                    Assert.AreEqual(3, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Missing 'ITEMID' element", e.Message);
+                Assert.AreEqual(3, e.LineNumber);
             }
         }
 
@@ -375,20 +330,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Invalid 'ITEMID' value: ''", e.Message);
-                    Assert.AreEqual(5, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Invalid 'ITEMID' value: ''", e.Message);
+                Assert.AreEqual(5, e.LineNumber);
             }
         }
 
@@ -404,20 +356,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Duplicate 'ITEMID' elements", e.Message);
-                    Assert.AreEqual(3, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Duplicate 'ITEMID' elements", e.Message);
+                Assert.AreEqual(3, e.LineNumber);
             }
         }
 
@@ -433,20 +382,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Invalid 'COLOR' value: 'x'", e.Message);
-                    Assert.AreEqual(6, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Invalid 'COLOR' value: 'x'", e.Message);
+                Assert.AreEqual(6, e.LineNumber);
             }
         }
 
@@ -462,20 +408,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Invalid 'MINQTY' value: 'x'", e.Message);
-                    Assert.AreEqual(6, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Invalid 'MINQTY' value: 'x'", e.Message);
+                Assert.AreEqual(6, e.LineNumber);
             }
         }
 
@@ -491,20 +434,17 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
-            using (var file = new TemporaryFile())
-            {
-                File.WriteAllText(file.Path, data);
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
 
-                try
-                {
-                    WantListFile.Load(file.Path);
-                    Assert.Fail();
-                }
-                catch (FileParseException e)
-                {
-                    Assert.AreEqual("Invalid 'QTYFILLED' value: 'x'", e.Message);
-                    Assert.AreEqual(6, e.LineNumber);
-                }
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Invalid 'QTYFILLED' value: 'x'", e.Message);
+                Assert.AreEqual(6, e.LineNumber);
             }
         }
 
@@ -520,9 +460,56 @@ namespace LibraryTests.BrickLink
                 </ITEM>
                 </INVENTORY>";
 
+            var xml = XElement.Parse(data, LoadOptions.SetLineInfo);
+
+            try
+            {
+                WantListFile.Load(xml);
+                Assert.Fail();
+            }
+            catch (FileParseException e)
+            {
+                Assert.AreEqual("Invalid 'MAXPRICE' value: 'x'", e.Message);
+                Assert.AreEqual(6, e.LineNumber);
+            }
+        }
+
+        #endregion
+
+        #region --------------------------------------------- Load (via file)
+
+        [TestMethod]
+        public void WantListFileTests_LoadFromFileOneItem()
+        {
+            string data = @"
+                <INVENTORY>
+                  <ITEM>
+                    <ITEMTYPE>P</ITEMTYPE>
+                    <ITEMID>3622</ITEMID> 
+                  </ITEM>
+                </INVENTORY>";
+
+            using (var file = new TemporaryFile(data))
+            {
+                var blfile = WantListFile.Load(file.Path);
+
+                Assert.AreEqual(1, blfile.Items.Count);
+
+                var item = blfile.Items[0];
+                Assert.IsNull(item.MaximumPrice);
+                Assert.IsNull(item.ColorId);
+                Assert.IsNull(item.MinimumDesiredQuantity);
+                Assert.IsNull(item.QuantityFilled);
+                Assert.AreEqual(WantListItemType.Part, item.ItemType);
+                Assert.AreEqual("3622", item.ItemNumber);
+            }
+        }
+        [TestMethod]
+        public void WantListFileTests_LoadFromFileMissingRootItem()
+        {
             using (var file = new TemporaryFile())
             {
-                File.WriteAllText(file.Path, data);
+                File.WriteAllText(file.Path, "");
 
                 try
                 {
@@ -531,8 +518,9 @@ namespace LibraryTests.BrickLink
                 }
                 catch (FileParseException e)
                 {
-                    Assert.AreEqual("Invalid 'MAXPRICE' value: 'x'", e.Message);
-                    Assert.AreEqual(6, e.LineNumber);
+                    Assert.AreEqual("XML exception", e.Message);
+                    Assert.AreEqual(0, e.LineNumber);
+                    Assert.AreEqual("Root element is missing.", e.InnerException?.Message);
                 }
             }
         }
