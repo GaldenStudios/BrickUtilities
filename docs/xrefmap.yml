@@ -154,6 +154,12 @@ references:
   commentId: M:BrickUtilities.BrickLink.WantListFile.Load(System.String)
   fullName: BrickUtilities.BrickLink.WantListFile.Load(System.String)
   nameWithType: WantListFile.Load(String)
+- uid: BrickUtilities.BrickLink.WantListFile.Load(System.Xml.Linq.XElement)
+  name: Load(XElement)
+  href: api/BrickUtilities.BrickLink.WantListFile.html#BrickUtilities_BrickLink_WantListFile_Load_System_Xml_Linq_XElement_
+  commentId: M:BrickUtilities.BrickLink.WantListFile.Load(System.Xml.Linq.XElement)
+  fullName: BrickUtilities.BrickLink.WantListFile.Load(System.Xml.Linq.XElement)
+  nameWithType: WantListFile.Load(XElement)
 - uid: BrickUtilities.BrickLink.WantListFile.Load*
   name: Load
   href: api/BrickUtilities.BrickLink.WantListFile.html#BrickUtilities_BrickLink_WantListFile_Load_
